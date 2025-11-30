@@ -5,7 +5,6 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import Loader from './components/common/Loader';
-
 // Componente para proteger rutas
 function RutaProtegida({ children }) {
   const { estaAutenticado, cargando } = useAuthContext();

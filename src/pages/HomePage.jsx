@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../components/layout/Header';
-import MenuDelDia from '../components/usuario/MenuDelDia';
-import FormularioAnotacion from '../components/usuario/FormularioAnotacion';
-import HorarioCerrado from '../components/usuario/HorarioCerrado';
-import Loader from '../components/common/Loader';
+import Header from '../components/layout/Header.jsx';
+import MenuDelDia from '../components/usuario/MenuDelDia.jsx';
+import FormularioAnotacion from '../components/usuario/FormularioAnotacion.jsx';
+import HorarioCerrado from '../components/usuario/HorarioCerrado.jsx';
+import Loader from '../components/common/Loader.jsx';
 import { obtenerConfiguracion } from '../services/configuracionService';
 import { useHorario } from '../hooks/useHorario';
 import { obtenerFechaHoy } from '../utils/dateUtils';
