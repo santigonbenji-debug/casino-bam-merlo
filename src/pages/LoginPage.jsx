@@ -7,7 +7,7 @@ import Button from '../components/common/Button';
 import toast from 'react-hot-toast';
 
 export default function LoginPage() {
-  const [password, setPassword] = useState('');
+  const [pin, setPin] = useState('');
   const [cargando, setCargando] = useState(false);
   const { login } = useAuthContext();
   const navigate = useNavigate();
@@ -15,15 +15,20 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!password) {
-      toast.error('Por favor ingresá la contraseña');
+    if (!pin) {
+      toast.error('Por favor ingresá el PIN del día');
+      return;
+    }
+
+    if (pin.length !== 6) {
+      toast.error('El PIN debe tener 6 dígitos');
       return;
     }
 
     setCargando(true);
 
     try {
-      const resultado = await login(password);
+      const resultado = await login(pin);
       
       if (resultado.success) {
         toast.success('¡Bienvenido!');
@@ -35,6 +40,15 @@ export default function LoginPage() {
       toast.error('Error al iniciar sesión');
     } finally {
       setCargando(false);
+    }
+  };
+
+  const handlePinChange = (e) => {
+    // Solo permitir números
+    const valor = e.target.value.replace(/\D/g, '');
+    // Limitar a 6 dígitos
+    if (valor.length <= 6) {
+      setPin(valor);
     }
   };
 
@@ -59,17 +73,28 @@ export default function LoginPage() {
             />
           </div>
 
-          <Input
-            label="Contraseña"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
-            required={true}
-          />
+          <div className="mb-5">
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              PIN del Día
+            </label>
+            <input
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              value={pin}
+              onChange={handlePinChange}
+              placeholder="000000"
+              className="w-full px-4 py-3 border-2 border-indigo-200 rounded-lg focus:outline-none focus:border-indigo-500 text-center text-2xl font-mono tracking-widest"
+              maxLength={6}
+              autoComplete="off"
+            />
+            <p className="mt-2 text-xs text-gray-500 text-center">
+              Ingresá el PIN de 6 dígitos del día
+            </p>
+          </div>
 
-          <Button type="submit" variant="primary" disabled={cargando}>
-            {cargando ? 'Ingresando...' : '🔓 Ingresar'}
+          <Button type="submit" variant="primary" disabled={cargando || pin.length !== 6}>
+            {cargando ? 'Ingresando...' : '🔐 Ingresar'}
           </Button>
 
           <Button 
@@ -81,6 +106,12 @@ export default function LoginPage() {
             ← Volver
           </Button>
         </form>
+
+        <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+          <p className="text-xs text-blue-800 text-center">
+            💡 El PIN cambia automáticamente todos los días a las 7:00 AM
+          </p>
+        </div>
       </div>
     </div>
   );

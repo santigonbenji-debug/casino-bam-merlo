@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../context/AuthContext';
 import { useAnotaciones } from '../hooks/useAnotaciones';
-import Header from '../components/layout/Header';
+import Header from '../components/layout/Header';  // ✅ CORREGIDO
 import PanelConfiguracion from '../components/casino/PanelConfiguracion';
 import PanelListas from '../components/casino/PanelListas';
 import PanelHistorial from '../components/casino/PanelHistorial';
-import Button from '../components/common/Button';
-import Loader from '../components/common/Loader';
+import PanelPINDelDia from '../components/casino/PanelPINDelDia';
+import Button from '../components/common/Button';  // ✅ CORREGIDO
+import Loader from '../components/common/Loader';  // ✅ CORREGIDO
 import toast from 'react-hot-toast';
 
 export default function DashboardPage() {
@@ -36,6 +37,16 @@ export default function DashboardPage() {
 
         {/* Tabs de navegación */}
         <div className="flex gap-4 mb-8 border-b-2 border-gray-200 overflow-x-auto">
+          <button
+            onClick={() => setTabActiva('pin')}
+            className={`pb-3 px-6 font-semibold whitespace-nowrap transition-colors ${
+              tabActiva === 'pin'
+                ? 'text-indigo-600 border-b-4 border-indigo-600'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            🔐 PIN del Día
+          </button>
           <button
             onClick={() => setTabActiva('config')}
             className={`pb-3 px-6 font-semibold whitespace-nowrap transition-colors ${
@@ -70,6 +81,8 @@ export default function DashboardPage() {
 
         {/* Contenido de tabs */}
         <div className="mb-6">
+          {tabActiva === 'pin' && <PanelPINDelDia />}
+          
           {tabActiva === 'config' && <PanelConfiguracion />}
           
           {tabActiva === 'listas' && (

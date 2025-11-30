@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { observarAutenticacion, iniciarSesion, cerrarSesion } from '../services/authService';
+import { observarAutenticacion, iniciarSesionConPIN, cerrarSesion } from '../services/authService';
 
 const AuthContext = createContext();
 
@@ -24,9 +24,9 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const login = async (password) => {
+  const login = async (pin) => {
     try {
-      const user = await iniciarSesion(password);
+      const user = await iniciarSesionConPIN(pin);
       setUsuario(user);
       return { success: true };
     } catch (error) {
