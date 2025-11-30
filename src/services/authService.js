@@ -10,8 +10,7 @@ import { validarPIN } from './pinService';
 const TURNO_CASINO_EMAIL = 'turnocasino@bammerlo.internal';
 // Contraseña fija del usuario de Firebase (nunca cambia)
 // El PIN diario es una capa adicional de seguridad
-const FIREBASE_PASSWORD = 'TurnoCasino2024!'; 
-
+const FIREBASE_PASSWORD = 'casino2025';
 /**
  * Inicia sesión del turno casino con PIN diario
  */
