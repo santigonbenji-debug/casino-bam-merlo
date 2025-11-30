@@ -3,6 +3,7 @@ import PersonaEntry from './PersonaEntry';
 import Button from '../common/Button';
 import { validarFormularioCompleto } from '../../utils/validations';
 import { agregarAnotacion } from '../../services/anotacionesService';
+import { obtenerFechaParaAnotacion } from '../../utils/dateUtils';
 import toast from 'react-hot-toast';
 export default function FormularioAnotacion({ almuerzoCerrado, cenaCerrada, onSuccess }) {
   const [personas, setPersonas] = useState([
@@ -55,23 +56,26 @@ export default function FormularioAnotacion({ almuerzoCerrado, cenaCerrada, onSu
 
     setEnviando(true);
 
-    try {
-      // Procesar cada persona
-      for (const persona of personas) {
-        // Determinar tipo de comida
-        let tipoComida = null;
-        if (persona.almuerzo && persona.cena) {
-          tipoComida = 'ambos';
-        } else if (persona.almuerzo) {
-          tipoComida = 'almuerzo';
-        } else if (persona.cena) {
-          tipoComida = 'cena';
-        }
+  try {
+  // Obtener la fecha correcta según el horario
+  const fechaAnotacion = obtenerFechaParaAnotacion();
 
-        if (tipoComida) {
-          await agregarAnotacion(persona, tipoComida);
-        }
-      }
+  // Procesar cada persona
+  for (const persona of personas) {
+    // Determinar tipo de comida
+    let tipoComida = null;
+    if (persona.almuerzo && persona.cena) {
+      tipoComida = 'ambos';
+    } else if (persona.almuerzo) {
+      tipoComida = 'almuerzo';
+    } else if (persona.cena) {
+      tipoComida = 'cena';
+    }
+
+    if (tipoComida) {
+      await agregarAnotacion(persona, tipoComida, fechaAnotacion);
+    }
+  }
 
       toast.success('¡Anotación exitosa!');
       

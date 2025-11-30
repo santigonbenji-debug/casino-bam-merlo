@@ -7,12 +7,13 @@ import HorarioCerrado from '../components/usuario/HorarioCerrado.jsx';
 import Loader from '../components/common/Loader.jsx';
 import { obtenerConfiguracion } from '../services/configuracionService';
 import { useHorario } from '../hooks/useHorario';
-import { obtenerFechaHoy } from '../utils/dateUtils';
-
+import { obtenerFechaParaAnotacion, formatearFechaLegible, esHorarioAnticipado } from '../utils/dateUtils';
 export default function HomePage() {
   const [config, setConfig] = useState(null);
   const [cargando, setCargando] = useState(true);
-  const { almuerzoCerrado, cenaCerrada } = useHorario(
+const { almuerzoCerrado, cenaCerrada, esAnticipado } = useHorario(    
+    
+    
     config?.horaLimiteAlmuerzo,
     config?.horaLimiteCena
   );
@@ -56,6 +57,27 @@ export default function HomePage() {
           menuCena={config?.menuCena}
           costo={config?.costoPlato}
         />
+
+
+        {/* Mensaje de horario anticipado */}
+{esAnticipado && (
+  <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded-lg mb-6">
+    <div className="flex items-center gap-2 mb-2">
+      <span className="text-2xl">🌙</span>
+      <h3 className="text-lg font-bold text-green-800">
+        Anotación Anticipada Activa
+      </h3>
+    </div>
+    <p className="text-green-700 font-medium">
+      Te estás anotando para el día: <span className="font-bold">
+        {formatearFechaLegible(obtenerFechaParaAnotacion())}
+      </span>
+    </p>
+    <p className="text-sm text-green-600 mt-2">
+      Después de las 22:00 hs podés anotarte para el día siguiente
+    </p>
+  </div>
+)}
 
         {ambosHorariosCerrados ? (
           <>
