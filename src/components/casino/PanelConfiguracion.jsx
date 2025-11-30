@@ -7,6 +7,8 @@ import Checkbox from '../common/Checkbox';
 import Button from '../common/Button';
 import toast from 'react-hot-toast';
 import { GRADOS_SUBOFICIALES } from '../../utils/grados';
+import { obtenerFechaParaAnotacion } from '../../utils/dateUtils';
+
 export default function PanelConfiguracion() {
   const [config, setConfig] = useState({
     menuAlmuerzo: '',
@@ -83,7 +85,8 @@ export default function PanelConfiguracion() {
     }
 
     // SEGUNDO: Agregar la anotación
-    await agregarAnotacion(personaManual, tipoComida);
+   const fechaAnotacion = obtenerFechaParaAnotacion();
+await agregarAnotacion(personaManual, tipoComida, fechaAnotacion);
     toast.success('Persona agregada correctamente');
     
     // TERCERO: Limpiar formulario
