@@ -81,8 +81,8 @@ export default function PanelPINDelDia() {
 
   if (cargando && !pin) {
     return (
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <div className="flex items-center justify-center h-64">
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <div className="flex items-center justify-center h-32 sm:h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
         </div>
       </div>
@@ -90,67 +90,69 @@ export default function PanelPINDelDia() {
   }
 
   return (
-    <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl shadow-2xl p-8">
-      <div className="text-center mb-6">
-        <h2 className="text-3xl font-bold text-white mb-2">
+    <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl shadow-2xl p-4 sm:p-8">
+      {/* Header - Responsive */}
+      <div className="text-center mb-4 sm:mb-6">
+        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">
           🔐 PIN del Día
         </h2>
-        <p className="text-indigo-100 text-lg">
+        <p className="text-indigo-100 text-base sm:text-lg">
           {formatearFecha(fechaGeneracion)}
         </p>
       </div>
 
-      {/* PIN en grande */}
-      <div className="bg-white rounded-2xl p-12 mb-6 shadow-xl">
+      {/* PIN en grande - Responsive */}
+      <div className="bg-white rounded-2xl p-6 sm:p-12 mb-4 sm:mb-6 shadow-xl">
         <div className="text-center">
-          <div className="text-7xl font-bold text-indigo-600 tracking-widest font-mono">
+          {/* PIN adaptado a móvil */}
+          <div className="text-5xl sm:text-7xl font-bold text-indigo-600 tracking-widest font-mono break-all">
             {pin}
           </div>
-          <p className="mt-4 text-gray-500 text-sm">
+          <p className="mt-3 sm:mt-4 text-gray-500 text-xs sm:text-sm">
             Generado a las {formatearHora(fechaGeneracion)}
           </p>
         </div>
       </div>
 
-      {/* Información adicional */}
-      <div className="bg-white/20 backdrop-blur-sm rounded-xl p-6 mb-6 text-white">
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
+      {/* Información adicional - Responsive */}
+      <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 sm:p-6 mb-4 sm:mb-6 text-white">
+        <div className="space-y-2 sm:space-y-3">
+          <div className="flex items-center justify-between text-sm sm:text-base">
             <span className="text-indigo-100">📅 Válido hasta:</span>
-            <span className="font-semibold">Mañana a las 7:00 AM</span>
+            <span className="font-semibold">Mañana 7:00 AM</span>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between text-sm sm:text-base">
             <span className="text-indigo-100">🔄 Próxima renovación:</span>
             <span className="font-semibold">Automática</span>
           </div>
         </div>
       </div>
 
-      {/* Botones de acción */}
-      <div className="grid grid-cols-2 gap-4">
+      {/* Botones de acción - Responsive */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         <button
           onClick={copiarPIN}
-          className="bg-white text-indigo-600 hover:bg-indigo-50 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
+          className="bg-white text-indigo-600 hover:bg-indigo-50 font-semibold py-3 sm:py-3 px-4 sm:px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 text-sm sm:text-base"
         >
           {copiado ? '✓ Copiado' : '📋 Copiar PIN'}
         </button>
         
         <button
           onClick={handleRegenerar}
-          className="bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
+          className="bg-red-500 hover:bg-red-600 text-white font-semibold py-3 sm:py-3 px-4 sm:px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 text-sm sm:text-base"
           disabled={cargando}
         >
           🔄 Regenerar
         </button>
       </div>
 
-      {/* Instrucciones */}
-      <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-        <h4 className="font-semibold text-yellow-900 mb-2">📝 Instrucciones:</h4>
-        <ol className="text-sm text-yellow-800 space-y-1 list-decimal list-inside">
+      {/* Instrucciones - Responsive */}
+      <div className="mt-4 sm:mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-3 sm:p-4">
+        <h4 className="font-semibold text-yellow-900 mb-2 text-sm sm:text-base">📝 Instrucciones:</h4>
+        <ol className="text-xs sm:text-sm text-yellow-800 space-y-1 list-decimal list-inside">
           <li>Anotá este PIN en papel</li>
           <li>Entregalo al turno entrante</li>
-          <li>El PIN se renueva automáticamente a las 7:00 AM</li>
+          <li>El PIN se renueva a las 7:00 AM</li>
           <li>Solo usá "Regenerar" en emergencias</li>
         </ol>
       </div>
