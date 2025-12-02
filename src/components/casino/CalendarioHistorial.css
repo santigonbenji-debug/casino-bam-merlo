@@ -1,0 +1,184 @@
+/* ============================================================================
+   ESTILOS DEL CALENDARIO HISTORIAL
+   Integrado con Tailwind CSS
+   ============================================================================ */
+
+.calendario-historial-wrapper {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Contenedor principal del calendario */
+.calendario-personalizado {
+  width: 100%;
+  border: 2px solid #c7d2fe; /* indigo-200 */
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  font-family: inherit;
+  background: white;
+}
+
+/* Barra de navegación superior */
+.calendario-personalizado .react-calendar__navigation {
+  background: linear-gradient(to right, #6366f1, #8b5cf6); /* indigo-500 to purple-600 */
+  border-radius: 0.5rem 0.5rem 0 0;
+  margin-bottom: 0;
+  height: 60px;
+}
+
+.calendario-personalizado .react-calendar__navigation button {
+  color: white;
+  font-weight: 600;
+  font-size: 1.125rem;
+  min-width: 44px;
+  background: none;
+}
+
+.calendario-personalizado .react-calendar__navigation button:enabled:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 0.375rem;
+}
+
+.calendario-personalizado .react-calendar__navigation button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Días de la semana (L M M J V S D) */
+.calendario-personalizado .react-calendar__month-view__weekdays {
+  background: #e0e7ff; /* indigo-100 */
+  color: #312e81; /* indigo-900 */
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.5rem 0;
+}
+
+.calendario-personalizado .react-calendar__month-view__weekdays__weekday {
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.calendario-personalizado .react-calendar__month-view__weekdays abbr {
+  text-decoration: none;
+  cursor: default;
+}
+
+/* Celdas de los días */
+.calendario-personalizado .react-calendar__tile {
+  padding: 1rem;
+  text-align: center;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  margin: 2px;
+  transition: all 0.2s ease;
+}
+
+/* DÍAS CON ACTIVIDAD (clickeables) */
+.calendario-personalizado .dia-con-actividad {
+  background: #6366f1; /* indigo-500 */
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+}
+
+.calendario-personalizado .dia-con-actividad::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: #fbbf24; /* yellow-400 */
+  border-radius: 50%;
+}
+
+.calendario-personalizado .dia-con-actividad:hover {
+  background: #4f46e5; /* indigo-600 */
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.5);
+  z-index: 10;
+}
+
+/* DÍAS SIN ACTIVIDAD (deshabilitados) */
+.calendario-personalizado .dia-sin-actividad {
+  color: #d1d5db; /* gray-300 */
+  cursor: not-allowed;
+  background: #f9fafb; /* gray-50 */
+}
+
+.calendario-personalizado .dia-sin-actividad:hover {
+  background: #f9fafb;
+  transform: none;
+}
+
+/* DÍA SELECCIONADO ACTUALMENTE */
+.calendario-personalizado .dia-seleccionado {
+  background: #7c3aed !important; /* purple-600 */
+  color: white !important;
+  font-weight: 700;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.3);
+  transform: scale(1.05);
+}
+
+.calendario-personalizado .dia-seleccionado::after {
+  background: #fde047; /* yellow-300 */
+}
+
+/* DÍA DE HOY (sin actividad) */
+.calendario-personalizado .react-calendar__tile--now {
+  background: #fef3c7; /* yellow-100 */
+  color: #78716c; /* gray-600 */
+  font-weight: 600;
+}
+
+/* DÍA DE HOY CON ACTIVIDAD */
+.calendario-personalizado .dia-con-actividad.react-calendar__tile--now {
+  background: #6366f1;
+  color: white;
+  box-shadow: 0 0 0 3px #fbbf24;
+}
+
+/* Días del mes anterior/siguiente (disabled) */
+.calendario-personalizado .react-calendar__month-view__days__day--neighboringMonth {
+  color: #e5e7eb !important; /* gray-200 */
+  opacity: 0.4;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 640px) {
+  .calendario-personalizado .react-calendar__tile {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+  }
+  
+  .calendario-personalizado .react-calendar__navigation {
+    height: 50px;
+  }
+  
+  .calendario-personalizado .react-calendar__navigation button {
+    font-size: 1rem;
+  }
+}
+
+/* Animación de entrada */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.calendario-historial-wrapper {
+  animation: fadeInScale 0.3s ease-out;
+}

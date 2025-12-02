@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { obtenerConfiguracion, actualizarConfiguracion } from '../../services/configuracionService';
 import { agregarAnotacion } from '../../services/anotacionesService';
 import Input from '../common/Input';

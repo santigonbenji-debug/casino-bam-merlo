@@ -126,3 +126,23 @@ export const formatearFechaLegible = (fechaString) => {
   ];
   return `${parseInt(day)} de ${meses[parseInt(month) - 1]} de ${year}`;
 };
+
+/**
+ * Normaliza una fecha a medianoche en timezone local
+ * Previene problemas de desfase de días por timezone
+ */
+export const normalizarFechaLocal = (fecha) => {
+  const f = new Date(fecha);
+  return new Date(f.getFullYear(), f.getMonth(), f.getDate(), 0, 0, 0, 0);
+};
+
+/**
+ * Convierte Date a string 'YYYY-MM-DD' sin problemas de timezone
+ */
+export const dateAStringSeguro = (date) => {
+  const f = normalizarFechaLocal(date);
+  const year = f.getFullYear();
+  const month = String(f.getMonth() + 1).padStart(2, '0');
+  const day = String(f.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
